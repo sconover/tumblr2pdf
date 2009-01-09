@@ -1,0 +1,88 @@
+needs to be a book I can use.  I want to use.  It's a reference.  
+It should be like the Chicago Manual of Style.  I want to pull it off the self and use it,
+because it's functional and nice to look at.
+  - front to back - by time
+  - black squares on the side of the page that line up per month, and say in nice helvetica "Oct 2007"
+    ....so you can "see" where the months change.
+  - what about a mini-calendar with the day marked?  would have to be really subtle and stylish.
+     _ _ _ _ _ _ _
+     _ _ _ _ _ _ _
+     _ _ _ _ _ _ _
+     _ _ _ 21 _ _ _
+     _ _ _ _ _ _ _
+     ...as I flip I see the dates advance, like a flipbook animation.
+  - generate an index based on search keywords (cmd line option?)
+    ...and make a month "front page" based on this?
+      ...month front page: tagcloud?  or one of those other cool tagcloudy things.
+  - apply your own css like tumblr lets you do - you can override anything.  
+    ...or there's a default css file.  you can just take that and change it.
+
+
+
+concepts:
+
+  pdf
+    read
+    write
+  
+  blog
+    posts (quote, photo, etc)
+
+  tumblr service
+
+  blog json result ==> blog + posts (posts of the correct type)
+
+  post json ==> post
+  
+  post - write to pdf
+
+
+  document do
+
+    title()
+    
+	blog.months.each do |month|
+	
+      section("#{month.name} #{month.year}") do
+        month.posts.each do |post|
+          if post.is_a?(Quote)
+          item do
+          
+          end
+        end
+      end
+      
+    end
+  end
+
+
+  document.title(blog.title)
+
+  blog.months.each do |month|
+    document.section do |section| 
+      section.title(month.name_and_year)   
+      month.posts.each do |post|
+        section << post
+	  end
+    end
+  end
+
+- fake/real document
+  ...pdfdocument
+  ...simpledocument
+
+
+
+consolidated template file?
+
+pdf page?
+
+  "try not to split over pages"
+
+  higher-level pdf wrapper...
+    page
+      header
+      body
+      
+      can_fit?(foo)
+    
