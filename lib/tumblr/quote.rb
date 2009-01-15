@@ -1,6 +1,12 @@
 class Quote
   include SaveableAsPdf
   
+  def self.from_fixture(name)
+    from_json_hash(
+      JSON.parse(File.read("spec/tumblr/sampledata/#{name}.json"))
+    )
+  end
+  
   def self.from_json_hash(h)
     Quote.new(
       :text => h["quote-text"].html_to_plain_text.strip,

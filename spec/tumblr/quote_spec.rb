@@ -6,9 +6,7 @@ describe Quote do
   
   
   it "writes to pdf" do
-    quote = Quote.from_json_hash(
-      JSON.parse(File.read("spec/tumblr/sampledata/mccain_quote.json"))
-    )
+    quote = Quote.from_fixture("mccain_quote")
     
     pdf = quote.save_to("/tmp/book.pdf")
     pdf.text.should include("one of the most well-known conservative")
