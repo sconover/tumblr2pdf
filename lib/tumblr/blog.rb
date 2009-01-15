@@ -18,7 +18,7 @@ class Blog
         end
       end
       
-      OpenStruct.new(converted)
+      Post.new(converted)
     end)
   end
   

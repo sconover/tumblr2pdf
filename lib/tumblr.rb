@@ -1,4 +1,6 @@
 require "lib/core"
+require "lib/book"
 require "ostruct"
 require "prawn"
+require "hpricot"
 require_dir "lib/tumblr"

@@ -18,7 +18,32 @@ because it's functional and nice to look at.
     ...or there's a default css file.  you can just take that and change it.
 
 
+========================
+concepts, take 2:
 
+blog
+  
+
+book
+  chapter
+    passage
+      ...can be asked to span pages
+    photo
+      ...won't span pages
+    video?
+  index
+    keyword          
+
+    write_pdf(foo.pdf)
+
+
+raw...pdf document
+
+
+
+make a blog into a book
+
+=======================
 concepts:
 
   pdf
