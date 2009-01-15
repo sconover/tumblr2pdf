@@ -14,5 +14,7 @@ class Passage
   
   def write_on(pdf)
     pdf.text(@text)
+    pdf.text(@source)
+    pdf.text(@when.strftime("%b") + " #{@when.day}")
   end
 end
