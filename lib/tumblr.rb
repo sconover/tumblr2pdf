@@ -1,5 +1,5 @@
 require "lib/core"
-require "lib/book"
+require "lib/book/saveable_as_pdf"
 require "ostruct"
 require "prawn"
 require "hpricot"

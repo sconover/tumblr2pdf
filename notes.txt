@@ -43,6 +43,9 @@ raw...pdf document
 
 make a blog into a book
 
+
+challenge: why shouldn't the chapter just directly contain a quote or a photo?
+
 =======================
 concepts:
 
