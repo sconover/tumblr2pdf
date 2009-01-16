@@ -9,11 +9,9 @@ describe Blog do
   end
   
   describe "get" do
-    it "gets posts" do
+    it "gets quote posts" do
       @blog.posts.pluck(:url).should == [
-        "http://sconover.tumblr.com/post/55209760",
-        "http://sconover.tumblr.com/post/55200403",
-        "http://sconover.tumblr.com/post/55172522"
+        "http://sconover.tumblr.com/post/55209760"
       ]
     end
   end
@@ -22,9 +20,8 @@ describe Blog do
   describe "pdf" do
     
     it "basic" do
-      pdf = @blog.write_tmp_pdf
+      pdf = @blog.to_book.save_to("/tmp/book.pdf")
       pdf.text.should include("one of the most well-known")
-      pdf.text.should include("Bush Land about John McCain.")
     end
     
   end

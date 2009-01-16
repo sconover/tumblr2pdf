@@ -1,5 +1,5 @@
 class Blog
-
+  include SaveableAsPdf
 
   #future: "download"?
   def self._blog_get(tumblr_service, site, start, num)
@@ -7,19 +7,11 @@ class Blog
   end
 
   def self.load(site, tumblr_service=TumblrService.new)
-    Blog.new(_blog_get(tumblr_service, site, 0, 0)["posts"].collect do |post_json|
-      
-      converted = {}
-      post_json.each do |attribute, value|
-        if attribute == "type"
-          converted["post_type"] = value
-        else
-          converted[attribute.gsub("-", "_")] = value
-        end
-      end
-      
-      Post.new(converted)
-    end)
+    Blog.new(_blog_get(tumblr_service, site, 0, 0)["posts"] \
+      .select { |post_json| post_json.key?("quote-text") } \
+      .collect do |post_json|
+          Quote.from_json_hash(post_json)
+        end)
   end
   
   
@@ -29,23 +21,15 @@ class Blog
     @posts = posts
   end
   
-  
-  def write_pdf_to(path)
-
-    doc = Prawn::Document.new
-    posts.each do |post|
-      if post.post_type == "quote"
-        doc.text(post.quote_text)
-      end
-    end
+  def to_book
     
-    doc.render_file(path)
+    chapter = Chapter.new("Foo")
+    @posts.each {|p| chapter.quote(p) }
     
-    PdfInspector.new(path)
-  end
-  
-  def write_tmp_pdf
-    write_pdf_to("/tmp/test.pdf")
+    book = Book.new
+    book.chapter(chapter)
+    
+    book
   end
   
 end

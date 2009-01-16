@@ -19,6 +19,14 @@ because it's functional and nice to look at.
 
 
 ========================
+plan
+
+import all quotes from the blog into pdf
+make that look nice
+
+now do photos
+
+========================
 concepts, take 2:
 
 blog
