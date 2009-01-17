@@ -2,12 +2,12 @@ class Blog
   include SaveableAsPdf
 
   #future: "download"?
-  def self._blog_get(tumblr_service, site, start, num)
-    JSON.parse(tumblr_service.get(@site, 0,0).sub("var tumblr_api_read = ", "").strip.sub(/;$/, ""))
+  def self._blog_get(tumblr_service, site)
+    tumblr_service.get(site)
   end
 
   def self.load(site, tumblr_service=TumblrService.new)
-    Blog.new(_blog_get(tumblr_service, site, 0, 0)["posts"] \
+    Blog.new(_blog_get(tumblr_service, site) \
       .select { |post_json| post_json.key?("quote-text") } \
       .collect do |post_json|
           Quote.from_json_hash(post_json)
