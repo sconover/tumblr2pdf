@@ -26,13 +26,15 @@ class Quote
   end
   
   def paragraphs
-    @text.split("\n\n")
+    results = @text.split("\n\n").each{|p|p + "\n\n"}
+    results.last.strip! if results.length>0
+    results
   end
   
-  def write_on(pdf)
-    paragraphs.each{|p|pdf.try_to_fit_on_same_page(p.strip + "\n\n")}
-    pdf.try_to_fit_on_same_page(@source)
-    pdf.text(formatted_when)
+  def write_on(doc)
+    doc.passage(@text)
+    doc.citation("\n" + @source + "\n\n\n\n")
+    doc.passage(formatted_when)
   end
   
 end

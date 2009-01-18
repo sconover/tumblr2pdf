@@ -16,9 +16,9 @@ class Book
     book
   end
   
-  def write_on(pdf)
-    pdf.text(@title)
+  def write_on(doc)
+    doc.passage(@title)
     
-    @chapters.each{|c|c.write_on(pdf)}
+    @chapters.each{|c|c.write_on(doc)}
   end
 end

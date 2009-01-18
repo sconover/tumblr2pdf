@@ -7,6 +7,9 @@ class FakePdf
     start_new_page
   end
   
+  def current_font
+  end
+  
   def select_font(*args) 
   end
   

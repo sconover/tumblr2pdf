@@ -16,11 +16,11 @@ class Chapter
     smaller
   end
   
-  def write_on(pdf)
-    pdf.text(@name)
+  def write_on(doc)
+    doc.passage(@name)
     
     @quotes.each do |q| 
-      q.write_on(pdf)
+      q.write_on(doc)
     end
   end
   

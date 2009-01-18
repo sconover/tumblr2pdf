@@ -14,7 +14,7 @@ describe Quote do
     pdf.text.should_not include("&#8220;")
     pdf.text.should_not include("</p>")
     
-    pdf.text.should include("Anger on the Right at McCain - The Washington Note [http://www.thewashingtonnote.com/archives/2008/10/anger_on_the_ri/]")
+    pdf.text.should include("Anger on the Right at McCain")
     
     pdf.text.should include("Oct 18")
   end

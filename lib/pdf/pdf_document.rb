@@ -9,28 +9,31 @@ class PdfDocument
     @page = Page.new(doc, page_height)    
   end    
   
-  def try_to_fit_on_same_page(text)
-    if @page.fits?(text)
-      text(text)
+  def try_to_fit_on_same_page(text, style={})
+    style_to_use = Page::DEFAULT_STYLE.merge(style)
+    
+    if @page.fits?(text, style_to_use)
+      text(text, style_to_use)
     else
       @page = @page.next
-      text(text)
+      text(text, style_to_use)
     end
   end
   
-  def text(text)
+  def text(text, style={})
+    
+    style_to_use = Page::DEFAULT_STYLE.merge(style)
     
     remaining_text = text
     while (!remaining_text.nil?)
       
-      if @page.full?
+      if @page.full?(style_to_use)
         @page = @page.next
-      else
-        @page.new_line_if_necessary
       end
-
       
-      remaining_text = @page.write_line(remaining_text)
+      @page.new_line_if_necessary(style_to_use[:line_size])
+      
+      remaining_text = @page.write_line(remaining_text, style_to_use)
     end
   end
   

@@ -15,6 +15,6 @@ book_dump_file += ".book"
 book = Blog.load(site, TumblrService.new).to_book
 book = book.fractional(fraction) if fraction
 
-File.open(book_dump_file, "w+") { |f| f << Marshal.dump(book.fractional(fraction)) }
+File.open(book_dump_file, "w+") { |f| f << Marshal.dump(book) }
 
 book.save_to(pdf_file) 

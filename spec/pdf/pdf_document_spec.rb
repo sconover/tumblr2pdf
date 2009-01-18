@@ -78,7 +78,8 @@ describe PdfDocument, "write line" do
   
   it "page advances" do
     fake_pdf = FakePdf.new
-    doc = PdfDocument.new(fake_pdf, 90)
+    doc = PdfDocument.new(fake_pdf, 50)
+    style = {:font_size=>10, :line_size => 20}
     
     doc.text("1 2 3 4 5 6 7 8 9 10")
     doc.text("1 2 3 4 5 6 7 8 9 10")
@@ -105,44 +106,10 @@ describe PdfDocument, "write line" do
 
 end
 
-# describe "fits_on_current_page" do
-#   it "doesn't really write lines.  returns estimate." do
-#     fake_pdf = FakePdf.new
-#     doc = PdfDocument.new(fake_pdf)
-#     
-#     doc.text("x x x")
-#     
-#     doc.estimate { text("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16") }.should == 80
-#     
-#     fake_pdf.pages.should == [["x x x"]]
-#     
-#     doc.text("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16")
-#     
-#     fake_pdf.pages.should == [
-#       [
-#         "x x x",
-#         "1 2 3 4 5",
-#         "6 7 8 9 10",
-#         "11 12 13 14 15",
-#         "16",
-#       ]
-#     ]
-#   end
-#   
-#   it "across pages" do
-#     fake_pdf = FakePdf.new
-#     doc = PdfDocument.new(fake_pdf, 90)
-#     
-#     doc.estimate { doc.text("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16") }.should == 80
-#     fake_pdf.pages.should == []
-#   end
-# 
-# end
-
 describe "try to get it all on the same page" do
   before do
     @fake_pdf = FakePdf.new
-    @doc = PdfDocument.new(@fake_pdf, 90)
+    @doc = PdfDocument.new(@fake_pdf, Page::DEFAULT_STYLE[:line_size]*4)
   end
   
   it "simple" do
