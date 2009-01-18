@@ -1,7 +1,10 @@
 require "lib/core"
-require "prawn"
+require "pdf/writer" 
+ 
+require "lib/book/saveable_as_pdf"
 
 require "lib/tumblr"
+require "lib/pdf"
 
-require "lib/book/saveable_as_pdf"
+
 require_dir "lib/book"

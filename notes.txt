@@ -18,6 +18,12 @@ because it's functional and nice to look at.
     ...or there's a default css file.  you can just take that and change it.
 
 
+=======================
+abstract away from pdf writer...
+  - passage
+    handles writing text and wrapping to the next page, etc
+this should be near-pure refactoring
+
 ========================
 plan
 

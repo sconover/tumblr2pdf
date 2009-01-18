@@ -10,6 +10,12 @@ class Book
     @chapters << another_chapter
   end
   
+  def fractional(fraction)
+    book = Book.new(@title)
+    @chapters.each {|c| book.chapter(c.fractional(fraction))}
+    book
+  end
+  
   def write_on(pdf)
     pdf.text(@title)
     

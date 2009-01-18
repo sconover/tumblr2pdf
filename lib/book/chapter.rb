@@ -10,10 +10,18 @@ class Chapter
     @quotes << another_quote
   end
   
+  def fractional(fraction)
+    smaller = Chapter.new(@name)
+    @quotes.slice(0..(@quotes.length.to_f/fraction.to_f).to_i + 1).each{|q|smaller.quote(q)}
+    smaller
+  end
+  
   def write_on(pdf)
     pdf.text(@name)
     
-    @quotes.each{|q| q.write_on(pdf)}
+    @quotes.each do |q| 
+      q.write_on(pdf)
+    end
   end
   
 end

@@ -1,3 +1,3 @@
 require "lib/core"
-require "prawn"
+require "pdf/writer"
 require_dir "lib/pdf"

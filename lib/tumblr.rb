@@ -1,7 +1,5 @@
 require "lib/core"
-require "lib/book/saveable_as_pdf"
 require "ostruct"
-require "prawn"
 require "hpricot"
 require "lib/book"
 require_dir "lib/tumblr"

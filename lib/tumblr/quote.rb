@@ -21,10 +21,18 @@ class Quote
     setup_named_params(args, {}, required)
   end
   
+  def formatted_when
+    @when.strftime("%b") + " #{@when.day}"
+  end
+  
+  def paragraphs
+    @text.split("\n\n")
+  end
+  
   def write_on(pdf)
-    pdf.text(@text)
-    pdf.text(@source)
-    pdf.text(@when.strftime("%b") + " #{@when.day}")
+    paragraphs.each{|p|pdf.try_to_fit_on_same_page(p.strip + "\n\n")}
+    pdf.try_to_fit_on_same_page(@source)
+    pdf.text(formatted_when)
   end
   
 end
