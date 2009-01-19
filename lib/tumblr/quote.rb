@@ -12,7 +12,7 @@ class Quote
       :text => h["quote-text"].html_to_plain_text.strip,
       :when => Time.parse(h["date"]),
       :url => h["url"],
-      :source => h["quote-source"].html_to_plain_text
+      :source => h["quote-source"]
     )
   end
   
@@ -25,15 +25,15 @@ class Quote
     @when.strftime("%b") + " #{@when.day}"
   end
   
-  def paragraphs
-    results = @text.split("\n\n").each{|p|p + "\n\n"}
-    results.last.strip! if results.length>0
-    results
-  end
-  
   def write_on(doc)
     doc.passage(@text)
+    
+    
+    if @source.include?("[http")
+      @source = @source.slice(0..@source.index("[http")-1)
+    end
     doc.citation("\n" + @source + "\n\n\n\n")
+   
     doc.passage(formatted_when)
   end
   

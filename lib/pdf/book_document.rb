@@ -1,6 +1,6 @@
 class BookDocument
-  def initialize
-    @pdf = PdfDocument.new
+  def initialize(pdf=PdfDocument.new)
+    @pdf = pdf
   end
   
   def passage(text)

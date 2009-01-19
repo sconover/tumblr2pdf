@@ -35,8 +35,18 @@ class Page
   end
 
   def next
-    @doc.start_new_page
-    Page.new(@doc, @page_height)
+    @doc.start_new_page unless @test_mode
+    page = Page.new(@doc, @page_height)
+    page.instance_variable_set("@test_mode", @test_mode)
+    page
+  end
+  
+  def test_mode_clone
+    page = Page.new(@doc, @page_height)
+    page.instance_variable_set("@pointer", @pointer)
+    page.instance_variable_set("@test_mode", true)
+    page.instance_variable_set("@current_line_full", @current_line_full)
+    page
   end
 
   def enough_room?(points)
@@ -58,24 +68,6 @@ class Page
   def new_line(line_size)
     @pointer -= line_size
     @current_line_full = false
-  end
-  
-  def fits?(text, style)
-    @test_mode = true
-    current_line_full_before = @current_line_full
-    pointer_before = @pointer
-    
-    remaining_text = text
-    while (!remaining_text.nil? && !full?(style))
-      new_line_if_necessary(style[:line_size])
-      remaining_text = write_line(remaining_text, style)
-    end
-    
-    @current_line_full = current_line_full_before
-    @pointer = pointer_before
-    @test_mode = false
-    
-    remaining_text == nil
   end
   
   def write_line(some_text, style)
