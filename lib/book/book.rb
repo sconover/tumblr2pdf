@@ -17,7 +17,7 @@ class Book
   end
   
   def write_on(doc)
-    doc.passage(@title)
+    doc.text(@title)
     
     @chapters.each{|c|c.write_on(doc)}
   end

@@ -25,16 +25,59 @@ class Quote
     @when.strftime("%b") + " #{@when.day}"
   end
   
-  def write_on(doc)
-    doc.passage(@text)
+  def write_passage(doc)
+    passage_style = {
+      :font_size => 10,
+      :line_size => 13,
+  
+      :text_x_offset => 200,
+      :text_width => 300
+    }
+    text = @text.gsub("\n\n\342\200\246\n\n", "\n...\n")
+    text = text.gsub("\n\n...\n\n", "\n...\n")
     
+    paragraphs = text.split("\n...\n")
+    paragraphs.slice(0..-2).each{|p|p << "\n...\n"}
+
+    paragraphs = 
+      paragraphs.collect do |p|
+        inner_paragraphs = p.split("\n\n")
+        inner_paragraphs.slice(0..-2).each{|p|p << "\n\n"}
+        inner_paragraphs
+      end.flatten
     
-    if @source.include?("[http")
-      @source = @source.slice(0..@source.index("[http")-1)
+    if paragraphs.length>0
+      paragraphs.slice(0..-2).each do |p|
+        doc.try_to_fit_on_same_page{|doc|doc.text(p, passage_style)}
+      end
+      
+      doc.try_to_fit_on_same_page do |doc|
+        doc.text(paragraphs.last, passage_style)
+        write_citation(doc)
+      end
     end
-    doc.citation("\n" + @source + "\n\n\n\n")
-   
-    doc.passage(formatted_when)
+  end
+  
+  def write_citation(doc)
+    source = @source.gsub(/\[http.*\]/, "")
+    
+    citation_style = {
+      :font_size => 10,
+      :line_size => 13,
+  
+      :text_x_offset => 220,
+      :text_width => 280,
+      :font => "Times-Italic"
+    }
+    
+    doc.try_to_fit_on_same_page do |doc|
+      doc.text("\n" + source + "\n\n\n\n", citation_style)
+    end
+  end
+  
+  def write_on(doc)
+    doc.text(formatted_when)
+    write_passage(doc)
   end
   
 end

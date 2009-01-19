@@ -114,7 +114,7 @@ describe "try to get it all on the same page" do
   
   it "simple" do
     
-    @doc.try_to_fit_on_same_page("1 2 3 4")
+    @doc.try_to_fit_on_same_page{|doc|doc.text("1 2 3 4")}
     
     @fake_pdf.pages.should == [
       [
@@ -133,7 +133,7 @@ describe "try to get it all on the same page" do
       ]
     ]
     
-    @doc.try_to_fit_on_same_page("a b c d e f g")
+    @doc.try_to_fit_on_same_page{|doc| doc.text("a b c d e f g")}
     
     @fake_pdf.pages.should == [
       [
@@ -146,7 +146,7 @@ describe "try to get it all on the same page" do
     ]
     
     @doc.text("1 2 3 4")
-    @doc.try_to_fit_on_same_page("1 2 3 4 5 6 7 8 9 10 11 12")
+    @doc.try_to_fit_on_same_page{|doc| doc.text("1 2 3 4 5 6 7 8 9 10 11 12")}
     
     @fake_pdf.pages.should == [
       [

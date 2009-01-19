@@ -30,15 +30,15 @@ class PdfDocument
     doc.pages_used==1
   end
   
-  def try_to_fit_on_same_page(text, style={})
-    style_to_use = Page::DEFAULT_STYLE.merge(style)
-    
-    if would_fit_on_current_page? {|doc|doc.text(text, style_to_use)}
-      text(text, style_to_use)
+  def try_to_fit_on_same_page(&block)
+    # if would_fit_on_current_page?(&block) {|doc|doc.text(text, style_to_use)}
+    if would_fit_on_current_page?(&block)
+      block.call(self)
     else
       advance_page
-      text(text, style_to_use)
+      block.call(self)
     end
+
   end
   
   def text(text, style={})

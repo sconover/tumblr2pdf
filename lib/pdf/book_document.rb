@@ -16,7 +16,7 @@ class BookDocument
     paragraphs = text.split("\n\n").collect{|p|p + "\n\n"}
     paragraphs.last.strip! if paragraphs.length>0
     paragraphs.each do |p|
-      @pdf.try_to_fit_on_same_page(p, passage_style)
+      @pdf.try_to_fit_on_same_page{|doc|doc.text(p, passage_style)}
     end
   end
   
@@ -30,7 +30,7 @@ class BookDocument
       :font => "Times-Italic"
     }
     
-    @pdf.try_to_fit_on_same_page(text, citation_style)
+    @pdf.try_to_fit_on_same_page{|doc|doc.text(text, citation_style)}
   end
   
   def save_to(path)

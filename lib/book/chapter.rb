@@ -17,7 +17,7 @@ class Chapter
   end
   
   def write_on(doc)
-    doc.passage(@name)
+    doc.text(@name)
     
     @quotes.each do |q| 
       q.write_on(doc)
